@@ -17,7 +17,6 @@ public:
 		{
 			aux[i] = vec[i];
 		}
-		System::Random ^ r = gcnew System::Random((int)System::DateTime::Now.Ticks);
 		aux[n] = new CPelota(AnchoF, LargoF, 10, 10, 2, 2);
 		delete vec;
 		vec = aux;
