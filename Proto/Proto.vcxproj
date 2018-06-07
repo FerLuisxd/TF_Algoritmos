@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="CPelota.h" />
     <ClInclude Include="CVecPelota.h" />
+    <ClInclude Include="EnemigoReb.h" />
     <ClInclude Include="Personaje.h" />
     <ClInclude Include="Proto.h">
       <FileType>CppForm</FileType>

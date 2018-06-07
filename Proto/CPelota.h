@@ -5,6 +5,7 @@ class CPelota
 {
 private:
 	int x, y, Width, Height, dx, dy;
+	bool ded;
 public:
 	CPelota();
 	CPelota(int a, int b, int wi, int he, int dx, int dy) {//se le peude aumentar 3 parametros de rgb
@@ -19,6 +20,7 @@ public:
 	bool select(int px, int py) {
 		return px > x && px < x + Width && py > y && py < y + Height;
 	};
+	bool getDed() { return ded; }
 	void Dibujar(Graphics ^ g);
 	void MoverP(Graphics ^g, int ancho, int largo) {
 		if (x + dx < 0 || x + Width + dx > ancho) {
@@ -31,12 +33,28 @@ public:
 		y += dy;
 		g->FillEllipse(gcnew SolidBrush(Color::WhiteSmoke), x, y, Width, Height);
 	}
+	void MoverEne(BufferedGraphics^buffer, int ancho, int largo) {
+		if (x + dx < 0 || x + Width + dx > ancho) {
+			dx *= -1;
+			//ded = true;
+		}
+		if (y + dy < 0 || y + Height + dy> largo) {//fixear cuando y es menor a 0
+			dy *= -1;
+			//ded = true;
+		}
+		x += dx;
+		y += dy;
+		//buffer->Graphics->DrawEllipse(gcnew Pen(Color::White), x, y, Width, Height);
+		buffer->Graphics->FillEllipse(Brushes::Red, x, y, Width, Height);
+	}
 	void MoverPe(BufferedGraphics^buffer, int ancho, int largo) {
 		if (x + dx < 0 || x + Width + dx > ancho) {
-			dx = -1;
+			//dx *= -1;
+			ded = true;
 		}
-		if (y +dy < 0 || y + Height + dy> largo) {//fixear cuando y es menor a 0
-			dy = -1;
+		if (y + dy < 0 || y + Height + dy> largo) {//fixear cuando y es menor a 0
+			//dy *= -1;
+			ded = true;
 		}
 		x += dx;
 		y += dy;
@@ -50,6 +68,8 @@ public:
 	int getY() { return y; };
 	void setDx(int a) {		dx = a;	}
 	void setDy(int a) { dy = a; }
+	int getAncho() { return Width; }
+	int getAlto() { return Height; }
 };
 
 

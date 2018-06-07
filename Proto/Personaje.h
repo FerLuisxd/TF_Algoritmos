@@ -6,8 +6,12 @@ class Personaje
 protected:
 	int x, y, dx=3, dy=3;
 	float t;
-	int ancho, alto, indiceX, indiceY, vida;
+	int ancho, alto, indiceX, indiceY;
+	bool danado;
+	int vida=3;
 public:
+	int getVidaP() { return vida; }
+	void VMenos() { vida = vida - 1; }
 	Personaje();
 	~Personaje();
 	void Mostrar_con_Figura(Graphics ^g, Bitmap ^bmp);
@@ -19,6 +23,9 @@ public:
 	int getX() { return x; };
 	void setY(int a) { y = a; };
 	int getY() { return y; };
+	bool getDanado() { return danado; }
+	int getAncho() { return ancho * 0.5; }
+	int getAlto() { return alto * 0.5; }
 	void Menos();
 };
 
@@ -44,7 +51,7 @@ inline void Personaje::dibujar(BufferedGraphics ^ buffer, Bitmap ^ bmp)
 	ancho = bmp->Width;
 	alto = bmp->Height;
 	Rectangle area = Rectangle(0, 0, ancho, alto);
-	Rectangle aum = Rectangle(x, y, ancho, alto);
+	Rectangle aum = Rectangle(x, y, ancho*0.5, alto*0.5);
 	//Rectangle area = Rectangle(indiceX*ancho, indiceY*alto, ancho, alto);
 	//Rectangle aum = Rectangle(x, y, ancho*0.5, alto*0.5);
 	buffer->Graphics->DrawImage(bmp, aum, area, GraphicsUnit::Pixel);
@@ -69,6 +76,7 @@ inline Personaje::Personaje(int px, int py)
 {
 	x = px;
 	y = py;
+	vida = 3;
 }
 
 inline void Personaje::Menos()
