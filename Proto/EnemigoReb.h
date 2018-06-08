@@ -2,7 +2,7 @@
 #include "CPelota.h"	
 class EnemigoReb
 {
-	CPelota * *vec;
+	CPelota **vec;
 	int n;
 	int vel = 4;//velocidad de pelotas
 public:
@@ -15,15 +15,60 @@ public:
 	}
 	EnemigoReb();
 	void AgregarPelota(int AnchoF, int LargoF) {
-		CPelota * *aux = new CPelota *[n + 1];
-		for (size_t i = 0; i < n; i++)
-		{
-			aux[i] = vec[i];
+			CPelota * *aux = new CPelota *[n + 1];
+			for (size_t i = 0; i < n; i++)
+			{
+				aux[i] = vec[i];
+			}
+			aux[n] = new CPelota(AnchoF, LargoF, 30, 30, vel, vel);
+			delete vec;
+			vec = aux;
+			vec[n]->setVida(3);
+			n = n + 1;
+			
+	
+	}
+	void Divir(int AnchoF, int LargoF, int lv,int a) {
+		if (lv == 2) {
+			CPelota * *aux = new CPelota *[n + 2];
+			for (size_t i = 0; i < n; i++)
+			{
+				aux[i] = vec[i];
+			}
+			aux[n] = new CPelota(AnchoF, LargoF, 20, 20, vec[a]->getDx() *1.2, vec[a]->getDy()*-1.2);
+			aux[n + 1] = new CPelota(AnchoF, LargoF, 20, 20, vec[a]->getDx() *-1.2, vec[a]->getDy()*1.2);
+			delete vec;
+			vec = aux;
+			vec[n]->setVida(2);
+			vec[n + 1]->setVida(2);
+			n = n + 2;
+
 		}
-		aux[n] = new CPelota(AnchoF, LargoF, 30, 30, vel, vel);
-		delete vec;
-		vec = aux;
-		n = n + 1;
+		if (lv == 1) {
+			CPelota * *aux = new CPelota *[n + 2];
+			for (size_t i = 0; i < n; i++)
+			{
+				aux[i] = vec[i];
+			}
+			aux[n] = new CPelota(AnchoF, LargoF, 15, 15, vec[a]->getDx() *1.7, vec[a]->getDy()*-1.7);
+			aux[n + 1] = new CPelota(AnchoF, LargoF, 15, 15, vec[a]->getDx() *-1.7, vec[a]->getDy()*1.7);
+			delete vec;
+			vec = aux;
+			vec[n]->setVida(1);
+			vec[n + 1]->setVida(1);
+			n = n + 2;
+
+		}
+	}
+	void Dano(int a) {
+		if (a != -1) {
+			vec[a]->recibeD();
+			if (vec[a]->getVida() > 0) {
+				Divir(vec[a]->getX(), vec[a]->getY(), vec[a]->getVida(), a);
+			}
+			EliminarPelota(a);
+		}
+
 	}
 	void MoverP(BufferedGraphics^buffer, int AnchoF, int LargoF) {
 		for (int i = 0; i < n; i++)
@@ -31,6 +76,8 @@ public:
 			vec[i]->MoverEne(buffer, AnchoF, LargoF);
 		}
 	}
+	
+
 	void EliminarPelota() {
 		int it = -1;
 		for (int i = 0; i < n; i++)

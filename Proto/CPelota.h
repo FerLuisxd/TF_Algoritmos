@@ -6,7 +6,13 @@ class CPelota
 private:
 	int x, y, Width, Height, dx, dy;
 	bool ded;
+	int vida;
 public:
+	int getDx() { return dx; }
+	int getDy() { return dy; }
+	void setVida(int i) { vida = i; }
+	void recibeD() { vida = vida - 1; }
+	int getVida() { return vida; }
 	CPelota();
 	CPelota(int a, int b, int wi, int he, int dx, int dy) {//se le peude aumentar 3 parametros de rgb
 		x = a;

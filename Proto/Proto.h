@@ -143,10 +143,11 @@ namespace Proto {
 							if (IntersectByEne(a, b))
 							{
 								it = i;
-							}		
+								break;
+							}
 						}
 					}
-					ene->EliminarPelota(it);
+					ene->Dano(it);
 				}
 			}
 			for (int i = 0; i < ene->getN(); i++) {
