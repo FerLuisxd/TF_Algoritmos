@@ -28,7 +28,7 @@ namespace Proto {
 		Personaje * pj = new Personaje();
 		CVecPelota* vectorP = new CVecPelota();
 		Bitmap ^ personaje = gcnew Bitmap("Link.png");
-		EnemigoReb * ene = new EnemigoReb();
+		EnemigoReb * ene; //= new EnemigoReb();
 		System::Drawing::Font ^fuente = gcnew System::Drawing::Font("Comics Sans MS", 18, FontStyle::Bold);
 		System::Drawing::SolidBrush ^solid = gcnew System::Drawing::SolidBrush(Color::Red);
 	public:
@@ -88,7 +88,7 @@ namespace Proto {
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Proto::Proto_KeyDown);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Proto::Proto_KeyUp);
 			this->ResumeLayout(false);
-
+			ene = new EnemigoReb(5);
 
 		}
 #pragma endregion

@@ -1,16 +1,32 @@
 #pragma once
-#include "CPelota.h"	
+
+#include "CPelota.h"
+
 class EnemigoReb
 {
 	CPelota **vec;
-	int n;
-	int vel = 4;//velocidad de pelotas
+	int n=0;
+	int vel = 3;//velocidad de pelotas
+	int xi = 5;
+	//int a = 2;
+	//int c = 7;
+	//int m = 600;
 public:
+	int rng() {//random
+		xi = (2*xi+ 7) % 600;
+		return xi;
+	}
+
 	CPelota * getPelota(int i) { return vec[i]; }
 	int getN() { return n; }
 	EnemigoReb(int cant) {
-		n = cant;
+		//n = cant;
 		vec = new CPelota*[n];
+		
+		for (size_t i = 0; i < cant; i++)
+		{
+			AgregarPelota(rng(),rng() );
+		}
 
 	}
 	EnemigoReb();
@@ -20,7 +36,7 @@ public:
 			{
 				aux[i] = vec[i];
 			}
-			aux[n] = new CPelota(AnchoF, LargoF, 30, 30, vel, vel);
+			aux[n] = new CPelota(AnchoF, LargoF, 50, 50, vel, vel);
 			delete vec;
 			vec = aux;
 			vec[n]->setVida(3);
@@ -35,8 +51,8 @@ public:
 			{
 				aux[i] = vec[i];
 			}
-			aux[n] = new CPelota(AnchoF, LargoF, 20, 20, vec[a]->getDx() *1.2, vec[a]->getDy()*-1.2);
-			aux[n + 1] = new CPelota(AnchoF, LargoF, 20, 20, vec[a]->getDx() *-1.2, vec[a]->getDy()*1.2);
+			aux[n] = new CPelota(AnchoF, LargoF, 30, 30, vec[a]->getDx() *1.2, vec[a]->getDy()*-1.2);
+			aux[n + 1] = new CPelota(AnchoF, LargoF, 30, 30, vec[a]->getDx() *-1.2, vec[a]->getDy()*1.2);
 			delete vec;
 			vec = aux;
 			vec[n]->setVida(2);
@@ -50,8 +66,8 @@ public:
 			{
 				aux[i] = vec[i];
 			}
-			aux[n] = new CPelota(AnchoF, LargoF, 15, 15, vec[a]->getDx() *1.7, vec[a]->getDy()*-1.7);
-			aux[n + 1] = new CPelota(AnchoF, LargoF, 15, 15, vec[a]->getDx() *-1.7, vec[a]->getDy()*1.7);
+			aux[n] = new CPelota(AnchoF, LargoF, 20, 20, vec[a]->getDx() *1.7, vec[a]->getDy()*-1.7);
+			aux[n + 1] = new CPelota(AnchoF, LargoF, 20, 20, vec[a]->getDx() *-1.7, vec[a]->getDy()*1.7);
 			delete vec;
 			vec = aux;
 			vec[n]->setVida(1);
