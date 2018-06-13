@@ -2,6 +2,7 @@
 #include "Personaje.h"
 #include "CVecPelota.h"
 #include "EnemigoReb.h"
+#include "EnemigoSig.h"
 namespace Proto {
 
 	using namespace System;
@@ -29,6 +30,11 @@ namespace Proto {
 		CVecPelota* vectorP = new CVecPelota();
 		Bitmap ^ personaje = gcnew Bitmap("Link.png");
 		EnemigoReb * ene; //= new EnemigoReb();
+		Bitmap ^ eneSigue = gcnew Bitmap("enemigoSi.png");
+		EnemigoSig * ene2;
+		CPelota * eneSi = new CPelota(10,10,50,50,0,0);
+		CPelota * eneSi2 = new CPelota(500, 100, 50, 50, 0, 0);
+		CPelota * eneSi3 = new CPelota(100, 100, 50, 50, 0, 0);
 		System::Drawing::Font ^fuente = gcnew System::Drawing::Font("Comics Sans MS", 18, FontStyle::Bold);
 		System::Drawing::SolidBrush ^solid = gcnew System::Drawing::SolidBrush(Color::Red);
 	public:
@@ -89,40 +95,41 @@ namespace Proto {
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Proto::Proto_KeyUp);
 			this->ResumeLayout(false);
 			ene = new EnemigoReb(5);
+			ene2 = new EnemigoSig(5);
 
 		}
 #pragma endregion
 	private:template<class T> bool IntersectByEne(T * a, T * b)//rectangle
 	{
-		System::Drawing::Rectangle pig;
-		pig.X = a->getX();
-		pig.Y = a->getY();
-		pig.Width = a->getAncho();
-		pig.Height = a->getAlto();
-		System::Drawing::Rectangle pajaro;
-		pajaro.X = b->getX();
-		pajaro.Y = b->getY();
-		pajaro.Width = b->getAncho();
-		pajaro.Height = b->getAlto();
+		System::Drawing::Rectangle Elemento1;
+		Elemento1.X = a->getX();
+		Elemento1.Y = a->getY();
+		Elemento1.Width = a->getAncho();
+		Elemento1.Height = a->getAlto();
+		System::Drawing::Rectangle Elemento2;
+		Elemento2.X = b->getX();
+		Elemento2.Y = b->getY();
+		Elemento2.Width = b->getAncho();
+		Elemento2.Height = b->getAlto();
 
 
-		return pajaro.IntersectsWith(pig);
+		return Elemento2.IntersectsWith(Elemento1);
 	}
 	private:template<class T> bool IntersectByEne(Personaje * a, T * b)//rectangle
 	{
-		System::Drawing::Rectangle pig;
-		pig.X = a->getX();
-		pig.Y = a->getY();
-		pig.Width = a->getAncho();
-		pig.Height = a->getAlto();
-		System::Drawing::Rectangle pajaro;
-		pajaro.X = b->getX();
-		pajaro.Y = b->getY();
-		pajaro.Width = b->getAncho();
-		pajaro.Height = b->getAlto();
+		System::Drawing::Rectangle Elemento1;
+		Elemento1.X = a->getX();
+		Elemento1.Y = a->getY();
+		Elemento1.Width = a->getAncho();
+		Elemento1.Height = a->getAlto();
+		System::Drawing::Rectangle Elemento2;
+		Elemento2.X = b->getX();
+		Elemento2.Y = b->getY();
+		Elemento2.Width = b->getAncho();
+		Elemento2.Height = b->getAlto();
 
 
-		return pajaro.IntersectsWith(pig);
+		return Elemento2.IntersectsWith(Elemento1);
 	}
 	private: void Verificar() {
 		if (delay <= 100) {
@@ -162,10 +169,45 @@ namespace Proto {
 					}
 				}
 			}
+			
 
 			
 		}
 		//jugador y enemigos
+
+		//enemigoSig y jugador
+		if (ene2->getN() > 0) {
+			for (size_t i = 0; i < vectorP->getN(); i++)
+			{
+				it = -1;
+				if (vectorP->getPelota(i) != nullptr) {
+					CPelota * a = vectorP->getPelota(i);
+					for (int i = 0; i < ene2->getN(); i++) {
+						if (ene2->getPelota(i) != nullptr) {
+							CPelota * b = ene2->getPelota(i);
+							if (IntersectByEne(a, b))
+							{
+								it = i;
+								break;
+							}
+						}
+					}
+					ene2->Dano(it);
+				}
+			}
+			for (int i = 0; i < ene2->getN(); i++) {
+				if (ene2->getPelota(i) != nullptr) {
+					CPelota * b = ene2->getPelota(i);
+					if (IntersectByEne(pj, b)) {
+						if (delay >= 100) {
+							pj->VMenos();
+							delay = 0;
+
+						}
+					}
+				}
+			}
+		}
 	}
 	private: System::Void timer_tick(System::Object^  sender, System::EventArgs^  e) {
 		_DoMovement();	
@@ -175,6 +217,10 @@ namespace Proto {
 		pj->dibujar(buffer, personaje);
 		vectorP->MoverP(buffer, this->ClientRectangle.Width, this->ClientRectangle.Height);
 		ene->MoverP(buffer, this->ClientRectangle.Width, this->ClientRectangle.Height);
+		ene2->MoverE(buffer, eneSigue, pj->getX(), pj->getY());
+		//eneSi->moverEne2(buffer, eneSigue, pj->getX(), pj->getY(), 1);
+		//eneSi2->moverEne2(buffer, eneSigue, pj->getX(), pj->getY(), 1);
+		//eneSi3->moverEne2(buffer, eneSigue, pj->getX(), pj->getY(), 1);
 		//UI
 		//buffer->Graphics->DrawString("Vida: ", fuente, solid, 10, 10);
 		buffer->Graphics->DrawString(pj->getVidaP().ToString(), fuente, solid, delay, 10);

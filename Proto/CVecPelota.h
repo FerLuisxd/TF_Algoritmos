@@ -38,33 +38,22 @@ public:
 		vec = aux;
 		n = n + 1;
 	}
-	void AgregarPelota(int AnchoF, int LargoF) {//no se usa
-		CPelota * *aux = new CPelota *[n + 1];
-		for (size_t i = 0; i < n; i++)
-		{
-			aux[i] = vec[i];
-		}
-		aux[n] = new CPelota(AnchoF, LargoF, 10, 10, 10, 10);
-		delete vec;
-		vec = aux;
-		n = n + 1;
-	}
-	void DibujarPelotas(Graphics ^g) {
-		for (int i = 0; i < n; i++)
-		{
-			vec[i]->Dibujar(g);
-		}
-	}
+	//void AgregarPelota(int AnchoF, int LargoF) {//no se usa
+	//	CPelota * *aux = new CPelota *[n + 1];
+	//	for (size_t i = 0; i < n; i++)
+	//	{
+	//		aux[i] = vec[i];
+	//	}
+	//	aux[n] = new CPelota(AnchoF, LargoF, 10, 10, 10, 10);
+	//	delete vec;
+	//	vec = aux;
+	//	n = n + 1;
+	//}
+
 	void MoverP(BufferedGraphics^buffer, int AnchoF, int LargoF) {
 		for (int i = 0; i < n; i++)
 		{
 			vec[i]->MoverPe(buffer,AnchoF, LargoF);
-		}
-	}
-	void MoverPelotas(int AnchoF, int LargoF) {
-		for (int i = 0; i < n; i++)
-		{
-			vec[i]->Mover(AnchoF, LargoF);
 		}
 	}
 	void EliminarPelota() {

@@ -41,8 +41,6 @@ public:
 			vec = aux;
 			vec[n]->setVida(3);
 			n = n + 1;
-			
-	
 	}
 	void Divir(int AnchoF, int LargoF, int lv,int a) {
 		if (lv == 2) {
@@ -94,30 +92,30 @@ public:
 	}
 	
 
-	void EliminarPelota() {
-		int it = -1;
-		for (int i = 0; i < n; i++)
-		{
-			if (vec[i]->getDed() == true)
-				it = i;
-		}
-		if (it != -1) {
-			CPelota** aux = new CPelota*[n - 1];
-
-			for (int i = 0; i < it; i++)
-			{
-				aux[i] = vec[i];
-			}
-			for (int i = it; i < n - 1; i++)
-			{
-				aux[i] = vec[i + 1];
-			}
-			delete vec;
-			vec = aux;
-			n = n - 1;
-		}
-
-	}
+	//void EliminarPelota() {
+	//	int it = -1;
+	//	for (int i = 0; i < n; i++)
+	//	{
+	//		if (vec[i]->getDed() == true)
+	//			it = i;
+	//	}
+	//	if (it != -1) {
+	//		CPelota** aux = new CPelota*[n - 1];
+	//
+	//		for (int i = 0; i < it; i++)
+	//		{
+	//			aux[i] = vec[i];
+	//		}
+	//		for (int i = it; i < n - 1; i++)
+	//		{
+	//			aux[i] = vec[i + 1];
+	//		}
+	//		delete vec;
+	//		vec = aux;
+	//		n = n - 1;
+	//	}
+	//
+	//}
 	void EliminarPelota(int a) {
 		if (a >= 0) {
 			CPelota** aux = new CPelota*[n - 1];

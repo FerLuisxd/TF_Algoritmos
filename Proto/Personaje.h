@@ -14,10 +14,9 @@ public:
 	void VMenos() { vida = vida - 1; }
 	Personaje();
 	~Personaje();
-	void Mostrar_con_Figura(Graphics ^g, Bitmap ^bmp);
 	void dibujar(BufferedGraphics ^buffer, Bitmap ^bmp);
-	void MoverY(BufferedGraphics ^buffer, Bitmap ^bmp,int a);
-	void MoverX(BufferedGraphics ^buffer, Bitmap ^bmp,int a);
+	//void MoverY(BufferedGraphics ^buffer, Bitmap ^bmp,int a);
+	//void MoverX(BufferedGraphics ^buffer, Bitmap ^bmp,int a);
 	Personaje(int px, int py);
 	void setX(int a) { x = a; };
 	int getX() { return x; };
@@ -42,9 +41,6 @@ Personaje::~Personaje()
 {
 }
 
-inline void Personaje::Mostrar_con_Figura(Graphics ^ g, Bitmap ^ bmp)
-{
-}
 
 inline void Personaje::dibujar(BufferedGraphics ^ buffer, Bitmap ^ bmp)
 {
@@ -57,20 +53,20 @@ inline void Personaje::dibujar(BufferedGraphics ^ buffer, Bitmap ^ bmp)
 	buffer->Graphics->DrawImage(bmp, aum, area, GraphicsUnit::Pixel);
 }
 
-inline void Personaje::MoverY(BufferedGraphics ^ buffer, Bitmap ^ bmp,int a)
-{
-	if (y + alto + a*dy < 600 && y + a*dy >= 0)
-		y += a*dy;
-	dibujar(buffer, bmp);
-}
-
-
-inline void Personaje::MoverX(BufferedGraphics ^ buffer, Bitmap ^ bmp,int a)
-{
-	if (x + ancho + a*dx < 800 && x + a*dx >= 0)//envez de 800 un fin del form
-		x += a*dx;
-	dibujar(buffer, bmp);
-}
+//inline void Personaje::MoverY(BufferedGraphics ^ buffer, Bitmap ^ bmp,int a)
+//{
+//	if (y + alto + a*dy < 600 && y + a*dy >= 0)
+//		y += a*dy;
+//	dibujar(buffer, bmp);
+//}
+//
+//
+//inline void Personaje::MoverX(BufferedGraphics ^ buffer, Bitmap ^ bmp,int a)
+//{
+//	if (x + ancho + a*dx < 800 && x + a*dx >= 0)//envez de 800 un fin del form
+//		x += a*dx;
+//	dibujar(buffer, bmp);
+//}
 
 inline Personaje::Personaje(int px, int py)
 {
